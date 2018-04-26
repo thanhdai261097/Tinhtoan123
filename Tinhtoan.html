@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+		
+		
+	<link rel = "stylesheet" type = "text/css" href = "Tinhtoan.css" >
+		<title>Be Tap Tinh</title>
+	</head>
+	
+	<body>
+
+		<div class = "contentBox">
+		
+		<h2 style = "font-size: 25px; margin-left: 20px"> Bé Tập Tính</h2>
+			<div class="container">
+				<form name="frm">
+				
+				
+				
+				<div id = "left">
+				<p> Số thứ nhất: <input type = "text" id = "a" size="25" style = "margin-left: 2px"></p>
+				<p> Số thứ hai: <input type = "text" id = "b"  size="25" style = "margin-left: 10px; margin-top: 2px"></p>
+				<p>	Kết Quả: <type = "text" id= "result" style = "margin-left: 24px"> </p>
+				
+				</div>
+				
+				<br />
+				<div id = "main">
+					<input name= "Tinh" type = "radio" value = "Cộng" /> Cộng  
+					<input name= "Tinh" type = "radio" value= "Trừ"   /> Trừ<br/><br/>
+					<input name= "Tinh" type = "radio" value= "Nhân"  /> Nhân  
+					<input name= "Tinh" type = "radio" value= "Chia"  /> Chia <br/>
+					<input style = "margin-top: 13px;margin-left: 5px;" type="button" value="Tính" onclick="compute(this.form)">
+				</div>
+						
+				<br />
+				
+				<div id = "right">
+				<p>Thông Báo: <type = "text" id = "massage"></p>
+				</div>
+				
+					</form>
+			</div>
+			
+		</div>
+	
+ <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+	
+
+
+	function giatri(a,b,pheptinh,c,d)
+	{
+
+		this.a = a;
+		this.b = b;
+		this.pheptinh = pheptinh;
+		this.c = c;
+		this.d = d;
+	}
+
+
+    function compute(frm) 
+    {
+    		var socket = io.connect('http://localhost:1337');
+    		var kt = false;
+
+			var a = Number(document.frm.a.value);
+			var b = Number(document.frm.b.value);
+			var c = document.frm.a.value;
+			var d = document.frm.b.value;
+			var pheptinh;
+			var checkbox = document.getElementsByName("Tinh");
+			for (var i = 0; i < checkbox.length; i++)
+			{
+				if (checkbox[i].checked === true){
+				pheptinh = checkbox[i].value;
+				kt = true;
+				}
+				
+			}
+			if(kt === false) 
+			{
+				pheptinh = "false";
+			}
+			var test = new giatri(a,b,pheptinh,c,d);
+			  	socket.on('news', function (data)
+		  		{
+			    	socket.emit('test', { my: 'data' });
+		
+			    	socket.emit('ttt',{transfer: test});
+			    	socket.on('t',function(data1) {});
+			    	socket.on('ketqua',function(data)
+			    	{
+			    		socket.emit('thongbao', { my: 'data'});
+			    		document.getElementById("result").innerHTML = data.dataSend.ketqua;
+			    		document.getElementById("massage").innerHTML = data.dataSend.thongbao;
+		    	});
+
+		  	});
+	  }
+ </script>
+
+	</body>
+	
+</html>

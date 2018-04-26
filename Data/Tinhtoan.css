@@ -1,0 +1,51 @@
+
+ body
+ {
+    background-size: 1600px 1700px; 
+	position: relative;
+	
+ }
+ div.contentBox {
+	background-color: white;
+    width: 1000px;
+ 	padding-top: 13px;
+	height: 1520 px;
+    margin-left: 180px;
+	border-radius: 15px;
+	
+}
+.container {
+
+   width: 960px;
+   /*border: 1px solid #333;*/
+   margin-left: 20px;
+   margin-right: 20px;
+   background: white;
+}
+#left {
+position: relative;
+margin-top: 30px;
+ width: 350px;
+ height: 70px;
+ background: white;
+ float: left; /* dồn về phía bên trái */
+}
+
+/*==cột #main==*/
+#main{
+	margin-top: 30px;
+ width: 500px;
+ height: 93px;
+ background: white;
+  float: left; /* dồn về phía bên trái */
+  margin-left: 30px;
+}
+
+/*==cột #right==*/
+#right {
+ width: 700px;
+ height: 180px;
+ background: white;
+  float: left; /* dồn về phía bên phải -- Có thể dùng float: left vẫn được*/
+ 
+}
